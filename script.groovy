@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/krsna-kant/mark_ecommerce.git'
+                git branch: 'main', url: https://github.com/Ab-D-ev/kubernetes-devops-project.git
             }
         }
     }
