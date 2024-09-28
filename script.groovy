@@ -12,8 +12,8 @@ pipeline {
                 script {
                     echo 'Building Docker image...'
                     // Replace the following commands with your actual Docker build and push steps
-                    sh 'docker build -t mark-ecommerce:latest .'
-                     sh 'docker tag mark-ecommerce:latest  krsna3629/mark_to_do:latest'
+                    sh 'docker build -t mark_to_do:latest .'
+                     sh 'docker tag mark_to_do:latest  krsna3629/mark_to_do:latest'
                      sh 'docker push krsna3629/mark_to_do:latest'
 
                 }
