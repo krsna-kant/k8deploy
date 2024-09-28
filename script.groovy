@@ -14,7 +14,7 @@ pipeline {
                     // Replace the following commands with your actual Docker build and push steps
                     sh 'docker build -t mark-ecommerce:latest .'
                      sh 'docker tag mark-ecommerce:latest  krsna3629/k8_3629:latest'
-                     sh 'docker push your-docker-repo/mark-ecommerce:latest'
+                     sh 'docker push krsna3629/mark-ecommerce:latest'
 
                 }
             }
