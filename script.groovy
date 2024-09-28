@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Ab-D-ev/kubernetes-devops-project.git'
+                git branch: 'main', url: 'https://github.com/krsna-kant/K8attempt2.git'
             }
         }
         stage('Build Docker Image') {
@@ -13,6 +13,9 @@ pipeline {
                     echo 'Building Docker image...'
                     // Replace the following commands with your actual Docker build and push steps
                     sh 'docker build -t mark-ecommerce:latest .'
+                     sh 'docker tag mark-ecommerce:latest  krsna3629/k8_3629:latest'
+                     sh 'docker push your-docker-repo/mark-ecommerce:latest'
+
                 }
             }
         }
