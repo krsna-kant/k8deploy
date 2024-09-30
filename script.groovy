@@ -12,11 +12,16 @@ pipeline {
                 script {
                     echo 'Building Docker image...'
                     // Replace the following commands with your actual Docker build and push steps
-                    sh 'docker build -t mark_to_do:latest .'
-                     sh 'docker tag mark_to_do:latest  krsna3629/mark_to_do:latest'
-                     sh 'docker push krsna3629/mark_to_do:latest'
-
+                    sh 'docker build -t mark_to_do:latest .'  
                 }
+            }
+        }
+        stage('Pushing Image to DockerHub'){
+
+                withCredentials([string(credentialsId: 'DHPass', variable: 'DHPass')]) {
+                sh 'docker login -u krsna3629 -p ${DHPass}'
+                sh 'docker image push krsna3629/$JOB_NAME:v1.$BUILD_ID'
+                sh 'docker image push krsna3629/$JOB_NAME:latest'
             }
         }
     }
