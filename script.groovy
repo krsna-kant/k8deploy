@@ -17,12 +17,13 @@ pipeline {
             }
         }
         stage('Pushing Image to DockerHub'){
-
+                steps{
                 withCredentials([string(credentialsId: 'DHPass', variable: 'DHPass')]) {
                 sh 'docker login -u krsna3629 -p ${DHPass}'
                 sh 'docker image push krsna3629/$JOB_NAME:v1.$BUILD_ID'
                 sh 'docker image push krsna3629/$JOB_NAME:latest'
-            }
+             }
+           }
         }
     }
 }
