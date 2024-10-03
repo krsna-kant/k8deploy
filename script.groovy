@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        // stage('Clone Code') {
-        //     steps {
-        //         git branch: 'main', url: 'https://github.com/krsna-kant/K8attempt2.git'
-        //     }
-        // }
+        stage('Clone Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/krsna-kant/K8attempt2.git'
+            }
+        }
         // stage('Build Docker Image') {
         //     steps {
         //         script {
@@ -24,6 +24,11 @@ pipeline {
         //         sh 'docker image push krsna3629/$JOB_NAME:latest'
         //      }
         //    }
+        // }
+        // stage('sending File to Ansible & K8 Servers'){
+        //     steps{
+        //          sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/ ubuntu@35.154.235.112:/home/ubuntu/'
+        //     }
         // }
         stage('Sending file to Ansible'){
             steps{
