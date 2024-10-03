@@ -33,7 +33,13 @@ pipeline {
 
             }
         }
-
+        stage('Deploy to Kubernetes'){
+            steps{
+                sshagent(['K8']){
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@43.205.229.90 "ls" '
+                }
+            }
+        }
     }
 }
 
