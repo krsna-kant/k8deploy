@@ -27,7 +27,7 @@ pipeline {
         // }
         stage('Sending file to Ansible'){
             steps{
-                sshagent(['ansible']) {
+                sshagent(['Ansible']) {
                      sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.201.98.131 "ls" '
                 }
 
