@@ -28,6 +28,8 @@ pipeline {
         stage('sending File to Ansible & K8 Servers'){
             steps{
                  sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/ansible-playbook.yml ubuntu@35.154.235.112:/home/ubuntu/'
+                 sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/service.yml ubuntu@43.205.229.90:/home/ubuntu/'
+                  sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/deployment.yml ubuntu@43.205.229.90:/home/ubuntu/'
             }
         }
         stage('Sending file to Ansible'){
