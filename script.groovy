@@ -14,6 +14,7 @@ pipeline {
                     // Replace the following commands with your actual Docker build and push steps
                     sh 'docker build -t mark_to_do:latest .'
                     sh 'docker build -t mark_to_do:v2.$BUILD_ID .'  
+                    sh 'docker tag mark_to_do:v1.$BUILD_ID krsna3629/mark_to_do:v1.$BUILD_ID'
                 }
             }
         }
