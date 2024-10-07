@@ -12,9 +12,9 @@ pipeline {
                 script {
                     echo 'Building Docker image...'
                     // Replace the following commands with your actual Docker build and push steps
-                    sh 'docker build -t mark_to_do:latest .'
+                    // sh 'docker build -t mark_to_do:latest .'
                     sh 'docker build -t mark_to_do:v2.$BUILD_ID .'  
-                    sh 'docker tag krsna3629/mark_to_do:v2.$BUILD_ID krsna3629/mark_to_do:latest'
+                    sh 'docker tag mark_to_do:v2.$BUILD_ID krsna3629/mark_to_do:v2.$BUILD_ID'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'DHPass', variable: 'DHPass')]) {
                 sh 'docker login -u krsna3629 -p ${DHPass}'
                 sh 'docker image push krsna3629/mark_to_do:v2.$BUILD_ID'
-                sh 'docker image push krsna3629/mark_to_do:latest'
+                // sh 'docker image push krsna3629/mark_to_do:latest'
              }
            }
         }
