@@ -14,7 +14,7 @@ pipeline {
                     // Replace the following commands with your actual Docker build and push steps
                     sh 'docker build -t mark_to_do:latest .'
                     sh 'docker build -t mark_to_do:v2.$BUILD_ID .'  
-                    sh 'docker tag mark_to_do:v2.$BUILD_ID krsna3629/mark_to_do:v2.$BUILD_ID'
+                    sh 'docker tag krsna3629/mark_to_do:v2.$BUILD_ID krsna3629/mark_to_do:latest'
                 }
             }
         }
@@ -22,8 +22,8 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: 'DHPass', variable: 'DHPass')]) {
                 sh 'docker login -u krsna3629 -p ${DHPass}'
-                sh 'docker image push krsna3629/mark_to_do:v2.'
                 sh 'docker image push krsna3629/mark_to_do:v2.$BUILD_ID'
+                sh 'docker image push krsna3629/mark_to_do:latest'
              }
            }
         }
