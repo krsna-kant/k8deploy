@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    environment {
+        ANSIBLE_HOST_IP = '3.110.224.192'   // Ansible server IP
+        K8S_HOST_IP = '3.111.245.94'        // Kubernetes server IP
+    }
 
     stages {
         stage('Clone Code') {
@@ -32,40 +37,27 @@ pipeline {
 
         stage('Send Files to Ansible & K8 Servers') {
             steps {
-                sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/ansible-playbook.yml ubuntu@3.110.224.192:/home/ubuntu/'
-                sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/service.yml ubuntu@3.111.245.94:/home/ubuntu/'
-                sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/deployment.yml ubuntu@3.111.245.94:/home/ubuntu/'
+                sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/ansible-playbook.yml ubuntu@${ANSIBLE_HOST_IP}:/home/ubuntu/"
+                sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/service.yml ubuntu@${K8S_HOST_IP}:/home/ubuntu/"
+                sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/k8deployment/deployment.yml ubuntu@${K8S_HOST_IP}:/home/ubuntu/"
             }
         }
 
         stage('Run Ansible Playbook') {
             steps {
                 sshagent(['Ansible']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.224.192 "ansible-playbook /home/ubuntu/ansible-playbook.yml"'
-                }
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                sshagent(['K8']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.111.245.94 "kubectl apply -f /home/ubuntu/service.yml && kubectl apply -f /home/ubuntu/deployment.yml"'
-                }
-            }
-        }
-
-        stage('Run Local Ansible Playbook') {  // Newly added stage
-            steps {
-                script {
-                    def inventoryFile = ' my_inv'
+                    script {
+                    def inventoryFile = 'my_inv'
                     def playbookFile = 'ansible-playbook.yml'
 
-                    // Run the ansible-playbook locally
+                    // Run the ansible-playbook
                     sh """
                     ansible-playbook -i ${inventoryFile} ${playbookFile}
                     """
+                    }
                 }
             }
         }
+
     }
 }
