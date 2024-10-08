@@ -46,7 +46,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 sshagent(['Ansible']) {
-                    script {
+                    
                     def inventoryFile = '/home/ubuntu/my_inv'
                     def playbookFile = '/home/ubuntu/ansible-playbook.yml'
 
@@ -54,7 +54,7 @@ pipeline {
                     sh """
                     ansible-playbook -i ${inventoryFile} ${playbookFile}
                     """
-                    }
+                    
                 }
             }
         }
