@@ -30,15 +30,15 @@ pipeline {
         }
         stage('sending File to Ansible & K8 Servers'){
             steps{
-                 sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/ansible-playbook.yml ubuntu@52.66.24.176:/home/ubuntu/'
-                 sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/service.yml ubuntu@65.1.109.57:/home/ubuntu/'
-                  sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/deployment.yml ubuntu@65.1.109.57:/home/ubuntu/'
+                 sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/ansible-playbook.yml ubuntu@3.110.224.192:/home/ubuntu/'
+                 sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/service.yml ubuntu@3.111.245.94:/home/ubuntu/'
+                  sh 'scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/k8deployment/deployment.yml ubuntu@3.111.245.94:/home/ubuntu/'
             }
         }
         stage('Sending file to Ansible'){
             steps{
                 sshagent(['Ansible']) {
-                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@52.66.24.176 "ls" '
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.224.192 "ls" '
                 }
 
             }
@@ -46,7 +46,7 @@ pipeline {
         stage('Deploy to Kubernetes'){
             steps{
                 sshagent(['K8']){
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@65.1.109.57 "ls" '
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.111.245.94 "ls" '
                 }
             }
         }
