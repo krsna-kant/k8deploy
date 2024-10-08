@@ -46,13 +46,11 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 sshagent(['Ansible']) {
-                    
-                    def inventoryFile = '/home/ubuntu/my_inv'
-                    def playbookFile = '/home/ubuntu/ansible-playbook.yml'
-
-                    // Run the ansible-playbook
+                   // SSH into the Ansible host to run the playbook
                     sh """
-                    ansible-playbook -i ${inventoryFile} ${playbookFile}
+                    ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_HOST_IP} '
+                    ansible-playbook -i /home/ubuntu/my_inv /home/ubuntu/ansible-playbook.yml
+                    '
                     """
                     
                 }
